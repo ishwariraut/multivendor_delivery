@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { GoogleMap, useJsApiLoader, Marker, ZoomControl, ScaleControl } from '@react-google-maps/api'
+import dynamic from 'next/dynamic'
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { Box, CircularProgress, IconButton, Tooltip } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import MyLocationIcon from '@mui/icons-material/MyLocation'
@@ -44,8 +45,8 @@ const defaultCenter = {
 
 const options = {
   disableDefaultUI: true,
-  zoomControl: false,
-  scaleControl: false,
+  zoomControl: true,        // Enable native zoom control
+  scaleControl: true,       // Enable native scale control
   streetViewControl: false,
   rotateControl: false,
   fullscreenControl: false
@@ -105,8 +106,6 @@ export default function MapComponent({ orderId }: MapComponentProps) {
         onDragStart={handleDragStart}
         options={options}
       >
-        <ZoomControl position={google.maps.ControlPosition.RIGHT_BOTTOM} />
-        <ScaleControl position={google.maps.ControlPosition.LEFT_BOTTOM} />
         <LocationTracker 
           map={map}
           orderId={orderId}
@@ -126,4 +125,4 @@ export default function MapComponent({ orderId }: MapComponentProps) {
       </MapControls>
     </Box>
   )
-} 
+}

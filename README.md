@@ -4,21 +4,6 @@ A full-stack, real-time location tracking platform for a multi-vendor delivery s
 
 ---
 
-## 📸 Screenshots
-
-<!-- Add your screenshots in the assets/screenshots/ folder and reference them here -->
-
-### 🧑‍💼 Login / Register
-
-![Login Page](./assets/screenshots/login.png)
-
-### 🚚 Real-Time Delivery Tracking
-
-![Tracking Map](./assets/screenshots/tracking-map.png)
-
-### 🛒 Vendor Dashboard
-
-![Vendor Dashboard](./assets/screenshots/vendor-dashboard.png)
 
 ---
 

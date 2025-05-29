@@ -35,7 +35,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import MyLocationIcon from '@mui/icons-material/MyLocation'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://multivendor-delivery.onrender.com.'
 
 const mapContainerStyle = {
   width: '100%',

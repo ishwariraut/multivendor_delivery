@@ -6,7 +6,7 @@ import { prisma } from './index';
 export const initializeSocket = (httpServer: HttpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+      origin: process.env.FRONTEND_URL || 'https://multivendor-delivery-1.onrender.com',
       methods: ['GET', 'POST'],
     },
   });

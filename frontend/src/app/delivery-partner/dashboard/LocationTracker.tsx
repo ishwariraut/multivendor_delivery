@@ -23,7 +23,7 @@ export default function LocationTracker({ map, orderId, isFollowing, onFollowing
   const [socket, setSocket] = useState<any>(null)
 
   useEffect(() => {
-    const newSocket = io(process.env.NEXT_PUBLIC_API_URL || 'https://multivendor-delivery.onrender.com')
+    const newSocket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001')
     setSocket(newSocket)
 
     return () => {

@@ -12,7 +12,7 @@ export function startTracking(orderId: string, userId: string, onLocation: (loca
   }
 
   if (!socket) {
-    socket = io(process.env.NEXT_PUBLIC_API_URL || 'https://multivendor-delivery.onrender.com', {
+    socket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001', {
       auth: { token: localStorage.getItem('token') }
     });
   }

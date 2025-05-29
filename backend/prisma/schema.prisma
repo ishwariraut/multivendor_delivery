@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  VENDOR
+  DELIVERY_PARTNER
+  CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  ASSIGNED
+  PICKED_UP
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String
+  role      UserRole
+  status    Status    @default(ACTIVE)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Vendor relations
+  vendorOrders      Order[]    @relation("VendorOrders")
+  
+  // Delivery partner relations
+  deliveryPartner   DeliveryPartner?
+  deliveryOrders    Order[]    @relation("DeliveryOrders")
+  
+  // Customer relations
+  customerOrders    Order[]    @relation("CustomerOrders")
+  
+  // Location relations
+  location          Location?
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  status          OrderStatus @default(PENDING)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relations
+  vendorId        String
+  vendor          User        @relation("VendorOrders", fields: [vendorId], references: [id])
+  
+  customerId      String
+  customer        User        @relation("CustomerOrders", fields: [customerId], references: [id])
+  
+  deliveryPartnerId String?
+  deliveryPartner   User?     @relation("DeliveryOrders", fields: [deliveryPartnerId], references: [id])
+
+  // Location tracking
+  locations       Location[]
+
+  @@index([vendorId])
+  @@index([customerId])
+  @@index([deliveryPartnerId])
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  latitude  Float
+  longitude Float
+  timestamp DateTime @default(now())
+
+  // Relations
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  
+  userId    String?  @unique
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([orderId])
+  @@index([userId])
+}
+
+model DeliveryPartner {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  isActive  Boolean  @default(false)
+  currentLocation Json? // { latitude: number, longitude: number }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  CUSTOMER
+  VENDOR
+  DELIVERY_PARTNER
+  ADMIN
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  AVAILABLE
+  BUSY
+  OFFLINE
+} 

@@ -239,6 +239,11 @@ export default function DeliveryPartnerDashboard() {
   }
 
   const handleStartTracking = (order: Order) => {
+    if (!user?.id) {
+      setError('User not authenticated. Please login again.')
+      return
+    }
+
     console.log('Starting tracking for order:', order.id);
     startTracking(order.id, user.id, (location) => {
       setCurrentLocation(location)
@@ -254,6 +259,15 @@ export default function DeliveryPartnerDashboard() {
     stopTracking()
     setTracking(false)
     setTrackingOrder(null)
+  }
+
+  // Show loading or error state if user is not loaded
+  if (!user) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    )
   }
 
   return (
@@ -414,4 +428,4 @@ export default function DeliveryPartnerDashboard() {
       )}
     </Box>
   )
-} 
+}

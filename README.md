@@ -23,7 +23,7 @@ A full-stack, real-time location tracking platform for a multi-vendor delivery s
 - [Socket.IO Real-Time Tracking](#socketio-real-time-tracking)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
-- [License](#license)
+  
 
 ---
 
@@ -228,6 +228,3 @@ A full-stack, real-time location tracking platform for a multi-vendor delivery s
 ---
 
 
-## Contact
-
-For questions or support, please open an issue or contact the maintainer.
